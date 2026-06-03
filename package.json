@@ -1,0 +1,10 @@
+{
+  "name": "george-team-agent-template",
+  "version": "0.1.0",
+  "private": true,
+  "description": "One-command setup template for packaging team AI instructions, tools, skills, hooks, and memory conventions.",
+  "scripts": {
+    "validate": "node scripts/validate.js",
+    "doctor": "bash hooks/doctor.sh"
+  }
+}

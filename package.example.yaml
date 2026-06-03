@@ -1,0 +1,86 @@
+name: GeorgeTeamAgentTemplate
+version: 0.1.0
+type: ai-agent-package
+description: One-command setup for your team's AI.
+owners:
+  - platform-ai-team
+
+# This file is intentionally generic. Map it to your real package/build system:
+# npm, uv, internal build system, Bazel, Pants, Make, or a dedicated AI package
+# manager.
+
+compatibility:
+  runtimes:
+    - codex
+    - claude-code
+    - kiro
+    - opencode
+  shells:
+    - zsh
+    - bash
+
+build:
+  target: ai-capabilities
+  command: node scripts/validate.js
+
+dependencies:
+  agent_packages:
+    - TeamCoreSkills
+    - ExampleServiceSkills
+  tool_registries:
+    - default-mcp-tools
+
+agent:
+  spec: agents/team-ai.agent-spec.json
+
+context:
+  include:
+    - AGENTS.md
+    - context/*.md
+
+skills:
+  # In production, prefer making skills a separate package dependency such as
+  # TeamAISkills. It is included here only to show the template shape.
+  include:
+    - skills/**/SKILL.md
+
+memory:
+  # In production, prefer making memory a separate package dependency such as
+  # TeamAIMemory. It is included here only to show the template shape.
+  include:
+    - memory/index.md
+    - memory/journals/**/*.md
+    - memory/weekly/*.md
+    - memory/promoted/*.md
+
+hooks:
+  install: hooks/install.sh
+  agent_start: hooks/agent-start.sh
+  session_summary: hooks/session-summary.sh
+  doctor: hooks/doctor.sh
+  uninstall: hooks/uninstall.sh
+
+updates:
+  strategy: session-start
+  description: Check for package updates when a user starts a new agent session.
+  default_enabled: true
+  disable_env: TEAM_AI_AUTO_UPDATE=0
+  pinned_ref_env: TEAM_AI_PINNED_REF
+  dirty_checkout_policy: skip
+
+security:
+  shell_rc_writes: managed-marker-block
+  secrets_policy: never-store-secrets-or-customer-data
+  hook_review_required: true
+  uninstall_supported: true
+
+lifecycle:
+  install: ./hooks/install.sh
+  dry_run_install: ./hooks/install.sh --dry-run
+  start: ./hooks/agent-start.sh
+  doctor: ./hooks/doctor.sh
+  uninstall: ./hooks/uninstall.sh
+
+schemas:
+  agent_spec: schemas/agent-spec.schema.json
+  package: schemas/package.schema.json

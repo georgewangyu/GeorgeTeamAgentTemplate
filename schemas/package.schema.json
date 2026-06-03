@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/team-ai-package.schema.json",
+  "title": "Team AI Package",
+  "type": "object",
+  "required": [
+    "name",
+    "version",
+    "type",
+    "owners",
+    "compatibility",
+    "agent",
+    "context",
+    "skills",
+    "memory",
+    "hooks",
+    "updates",
+    "security",
+    "lifecycle"
+  ],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "type": {
+      "const": "ai-agent-package"
+    },
+    "owners": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "compatibility": {
+      "type": "object"
+    },
+    "agent": {
+      "type": "object"
+    },
+    "hooks": {
+      "type": "object"
+    }
+  }
+}

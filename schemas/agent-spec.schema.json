@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/team-ai-agent-spec.schema.json",
+  "title": "Team AI Agent Spec",
+  "type": "object",
+  "required": ["schemaVersion", "name", "version", "owners", "config", "includes", "dependencies", "clientConfig"],
+  "properties": {
+    "schemaVersion": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "owners": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "config": {
+      "type": "object",
+      "required": ["description"],
+      "properties": {
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "includes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dependencies": {
+      "type": "object"
+    },
+    "clientConfig": {
+      "type": "object"
+    }
+  }
+}

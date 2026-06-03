@@ -1,0 +1,93 @@
+{
+  "schemaVersion": "1",
+  "name": "team-ai",
+  "version": "0.1.0",
+  "owners": ["platform-ai-team"],
+  "config": {
+    "description": "Team AI agent with shared instructions, tools, skills, hooks, and update behavior."
+  },
+  "includes": ["base-coding-agent"],
+  "dependencies": {
+    "mcpRegistry": {
+      "code-search": {
+        "command": "example-code-search-mcp",
+        "args": []
+      },
+      "docs-search": {
+        "command": "example-docs-search-mcp",
+        "args": []
+      },
+      "issue-tracker": {
+        "command": "example-issue-tracker-mcp",
+        "args": []
+      }
+    },
+    "skills": {
+      "skillNames": ["code-review-prep-ops", "service-change-ops"],
+      "pattern": "skills/**/SKILL.md"
+    },
+    "context": {
+      "contextNames": ["AGENTS.md", "context/*"]
+    },
+    "memory": {
+      "journalPattern": "memory/journals/**/*.md",
+      "promotedPattern": "memory/promoted/*.md"
+    }
+  },
+  "clientConfig": {
+    "portable": {
+      "install": {
+        "alias": "ai",
+        "launcherDir": "~/.team-ai"
+      },
+      "trust": {
+        "autoUpdateDefault": true,
+        "disableAutoUpdateEnv": "TEAM_AI_AUTO_UPDATE=0",
+        "pinnedRefEnv": "TEAM_AI_PINNED_REF",
+        "notes": "Hooks should be reviewed before adoption and kept visible in this package."
+      },
+      "hooks": {
+        "install": [
+          {
+            "command": "./hooks/install.sh",
+            "description": "Install the ai launcher and verify local prerequisites."
+          }
+        ],
+        "agentStart": [
+          {
+            "command": "./hooks/agent-start.sh",
+            "description": "Sync team context and print the active package version."
+          }
+        ],
+        "sessionSummary": [
+          {
+            "command": "./hooks/session-summary.sh",
+            "description": "Append an incremental structured journal entry for later memory promotion."
+          }
+        ],
+        "doctor": [
+          {
+            "command": "./hooks/doctor.sh",
+            "description": "Validate local prerequisites, schemas, shell hooks, context files, and skill discovery."
+          }
+        ],
+        "uninstall": [
+          {
+            "command": "./hooks/uninstall.sh",
+            "description": "Remove the managed launcher and shell alias block."
+          }
+        ]
+      }
+    },
+    "exampleInlineHookStyle": {
+      "hooks": {
+        "agentSpawn": [
+          {
+            "command": "grep -qF 'alias ai=' ~/.zshrc 2>/dev/null || printf '\\n# Team AI agent\\nalias ai=\"codex\"\\n' >> ~/.zshrc",
+            "description": "Example inline hook for platforms that prefer hook commands in JSON."
+          }
+        ]
+      }
+    }
+  }
+}
