@@ -14,6 +14,11 @@ memory_tags:
 
 Use when preparing a local change for review.
 
+## Inputs
+
+- Required: current working tree, intended review scope, and repo instructions
+- Optional: tickets, design docs, rollback notes, or reviewer-specific context
+
 ## Workflow
 
 1. Read the local repo instructions and package docs.
@@ -28,10 +33,18 @@ Use when preparing a local change for review.
    - what was verified
    - what risk remains
 
+## Output Contract
+
+Return:
+
+- scoped diff summary
+- verification performed
+- remaining risk or rollback notes
+- any links to tickets or design docs
+
 ## Review Rules
 
 - Do not mix unrelated cleanup into the same review.
 - Do not claim verification that was not run.
 - Include rollback notes for risky changes.
 - Link to tickets/design docs when relevant.
-

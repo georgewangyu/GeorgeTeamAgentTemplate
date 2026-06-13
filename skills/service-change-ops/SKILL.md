@@ -14,6 +14,11 @@ memory_tags:
 
 Use when the task touches a service-owned package or directory.
 
+## Inputs
+
+- Required: target service/package, requested change, and current repo context
+- Optional: design docs, runbooks, ticket links, or rollback notes
+
 ## Context To Load
 
 Replace these examples with real paths:
@@ -31,6 +36,15 @@ Replace these examples with real paths:
 4. Run focused service verification.
 5. Capture API, schema, migration, or rollback risk in the review notes.
 
+## Output Contract
+
+Return:
+
+- the service or package touched
+- the change made
+- the verification run
+- remaining API, schema, migration, or rollback risk
+
 ## Verification
 
 Replace these with real commands:
@@ -40,3 +54,8 @@ make test-example-service
 make lint-example-service
 ```
 
+## Guardrails
+
+- Do not widen the scope from one service into unrelated cleanup.
+- Do not claim service verification that was not actually run.
+- Preserve team-owned docs and operating constraints when they exist.
