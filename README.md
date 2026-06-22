@@ -1,16 +1,3 @@
----
-doc_schema: "doc-frontmatter-v1"
-doc_id: "GeorgeTeamAgentTemplate/README"
-doc_type: "readme"
-doc_status: "active"
-title: "GeorgeTeamAgentTemplate"
-description: "One-command setup template for packaging team AI instructions, tools, skills, hooks, and memory conventions."
-memory_eligible: true
-memory_priority: "medium"
-doc_tags:
-  - "domain:team-ai"
-  - "type:readme"
----
 # GeorgeTeamAgentTemplate
 
 One-command setup for your team's AI.
